@@ -6,23 +6,26 @@ Requires Zlib.Gunzip from https://github.com/imaya/zlib.js/blob/master/bin/gunzi
 
 ## API:
 
-    &lt;input type="file" id="fi"&gt;
+    <input type="file" id="fi">
     var click = new ClickFile(fi.files[0]);
     click.onload(function(err) {
         // get a file list of the contents of one of the contained files in a click package
-        click.getFileList("control.tar.gz", function(err, filelist) { // provide control.tar.gz or data.tar.gz
+        click.getFileList("control.tar.gz", function(err, filelist) {
             console.log(filelist); // [{filename: "./manifest", file_size: 123, ...}, ...]
         });
-        click.getFile("data.tar.gz", "./myapp.apparmor", function(err, data) { // provide control/data and child filename
+        click.getFile("data.tar.gz", "./myapp.apparmor", function(err, data) {
             console.log(data); // {"policy_groups": ["networking"], "policy_version": 1.2}
         });
     });
 
 ### ClickFile
 
-Pass a [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object and then bind to the `onload` method.
+Pass a [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object and then set the `onload` method.
 
     var click = new ClickFile(someFileInput.files[0]);
+    click.onload(function(err) {
+        // read files here
+    });
 
 ### ClickFile.onload()
 
